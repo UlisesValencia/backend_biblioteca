@@ -11,7 +11,7 @@ const pool = new Pool({
   database: 'yrmiddlc',
   password: 'Gu1GJ5pFmHPt3j4bL-0xA_4892QUpKj8',
   port: 5432,
-  max: 5, // tamaño máximo del pool
+  max: 4, // tamaño máximo del pool
 });
 
 //Usuario
@@ -20,9 +20,11 @@ app.get('/usuarios', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM usuarios');
     res.json(result.rows);
+    release();
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al obtener usuarios');
+    release();
   }
 });
 //Obtener un usuario específico
@@ -30,9 +32,11 @@ app.get('/usuarios/:id', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM usuarios WHERE id = $1', [req.params.id]);
     res.json(result.rows[0]);
+    release();
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al obtener usuario');
+    release();
   }
 });
 //Crear un nuevo usuario
@@ -41,9 +45,11 @@ app.post('/usuarios', async (req, res) => {
     const { id, nombre } = req.body;
     const result = await pool.query('INSERT INTO usuarios (id, nombre) VALUES ($1, $2) RETURNING *', [id, nombre]);
     res.json(result.rows[0]);
+    release();
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al crear usuario');
+    release();
   }
 });
 //Actualizar un usuario
@@ -52,9 +58,11 @@ app.put('/usuarios/:id', async (req, res) => {
     const { nombre } = req.body;
     const result = await pool.query('UPDATE usuarios SET nombre = $1 WHERE id = $2 RETURNING *', [nombre, req.params.id]);
     res.json(result.rows[0]);
+    release();
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al actualizar usuario');
+    release();
   }
 });
 //Eliminar un usuario
@@ -62,9 +70,11 @@ app.delete('/usuarios/:id', async (req, res) => {
   try {
     const result = await pool.query('DELETE FROM usuarios WHERE id = $1 RETURNING *', [req.params.id]);
     res.json(result.rows[0]);
+    release();
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al borrar usuario');
+    release();
   }
 });
 
@@ -75,9 +85,11 @@ app.get('/libros', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM libros');
     res.json(result.rows);
+    release();
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al obtener libros');
+    release();
   }
 });
 
@@ -88,9 +100,11 @@ app.post('/usuarios/:id/libros', async (req, res) => {
     const result = await pool.query('INSERT INTO libros (titulo, autor, fecha_prestamo, usuario_id) VALUES ($1, $2, $3, $4) RETURNING *', 
     [titulo, autor, fecha_prestamo, req.params.id]);
     res.json(result.rows[0]);
+    release();
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al crear libro');
+    release();
   }
 });
 //Actualizar un libro
@@ -100,9 +114,11 @@ app.put('/usuarios/:id/libros/:libroId', async (req, res) => {
     const result = await pool.query('UPDATE libros SET titulo = $1, autor = $2, fecha_prestamo = $3 WHERE id = $4 AND usuario_id = $5 RETURNING *', 
     [titulo, autor, fecha_prestamo, req.params.libroId, req.params.id]);
     res.json(result.rows[0]);
+    release();
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al actualizar libro');
+    release();
   }
 });
 //Eliminar un libro
@@ -110,9 +126,11 @@ app.delete('/usuarios/:id/libros/:libroId', async (req, res) => {
   try {
     const result = await pool.query('DELETE FROM libros WHERE id = $1 AND usuario_id = $2 RETURNING *', [req.params.libroId, req.params.id]);
     res.json(result.rows[0]);
+    release();
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al borrar libro');
+    release();
   }
 });
 
