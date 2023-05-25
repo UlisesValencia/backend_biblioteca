@@ -23,9 +23,6 @@ app.get('/usuarios', async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al obtener usuarios');
-  }finally {
-    // asegúrate de liberar el cliente cuando hayas terminado
-    client.release();
   }
 });
 //Obtener un usuario específico
@@ -36,9 +33,6 @@ app.get('/usuarios/:id', async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al obtener usuario');
-  }finally {
-    // asegúrate de liberar el cliente cuando hayas terminado
-    client.release();
   }
 });
 //Crear un nuevo usuario
@@ -50,9 +44,6 @@ app.post('/usuarios', async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al crear usuario');
-  }finally {
-    // asegúrate de liberar el cliente cuando hayas terminado
-    client.release();
   }
 });
 //Actualizar un usuario
@@ -64,9 +55,6 @@ app.put('/usuarios/:id', async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al actualizar usuario');
-  }finally {
-    // asegúrate de liberar el cliente cuando hayas terminado
-    client.release();
   }
 });
 //Eliminar un usuario
@@ -77,9 +65,6 @@ app.delete('/usuarios/:id', async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al borrar usuario');
-  }finally {
-    // asegúrate de liberar el cliente cuando hayas terminado
-    client.release();
   }
 });
 
@@ -93,9 +78,6 @@ app.get('/libros', async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al obtener libros');
-  }finally {
-    // asegúrate de liberar el cliente cuando hayas terminado
-    client.release();
   }
 });
 
@@ -109,9 +91,6 @@ app.post('/usuarios/:id/libros', async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al crear libro');
-  }finally {
-    // asegúrate de liberar el cliente cuando hayas terminado
-    client.release();
   }
 });
 //Actualizar un libro
@@ -124,9 +103,6 @@ app.put('/usuarios/:id/libros/:libroId', async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al actualizar libro');
-  }finally {
-    // asegúrate de liberar el cliente cuando hayas terminado
-    client.release();
   }
 });
 //Eliminar un libro
@@ -137,9 +113,6 @@ app.delete('/usuarios/:id/libros/:libroId', async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al borrar libro');
-  }finally {
-    // asegúrate de liberar el cliente cuando hayas terminado
-    client.release();
   }
 });
 
