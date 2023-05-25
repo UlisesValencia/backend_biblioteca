@@ -11,7 +11,7 @@ const pool = new Pool({
   database: 'yrmiddlc',
   password: 'Gu1GJ5pFmHPt3j4bL-0xA_4892QUpKj8',
   port: 5432,
-  max: 4, // tamaño máximo del pool
+  max: 5, // tamaño máximo del pool
 });
 
 //Usuario
