@@ -20,11 +20,9 @@ app.get('/usuarios', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM usuarios');
     res.json(result.rows);
-    client.release();
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al obtener usuarios');
-    client.release();
   }
 });
 //Obtener un usuario específico
@@ -32,11 +30,9 @@ app.get('/usuarios/:id', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM usuarios WHERE id = $1', [req.params.id]);
     res.json(result.rows[0]);
-    client.release();
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al obtener usuario');
-    client.release();
   }
 });
 //Crear un nuevo usuario
@@ -45,11 +41,9 @@ app.post('/usuarios', async (req, res) => {
     const { id, nombre } = req.body;
     const result = await pool.query('INSERT INTO usuarios (id, nombre) VALUES ($1, $2) RETURNING *', [id, nombre]);
     res.json(result.rows[0]);
-    client.release();
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al crear usuario');
-    client.release();
   }
 });
 //Actualizar un usuario
@@ -58,11 +52,9 @@ app.put('/usuarios/:id', async (req, res) => {
     const { nombre } = req.body;
     const result = await pool.query('UPDATE usuarios SET nombre = $1 WHERE id = $2 RETURNING *', [nombre, req.params.id]);
     res.json(result.rows[0]);
-    client.release();
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al actualizar usuario');
-    client.release();
   }
 });
 //Eliminar un usuario
@@ -70,11 +62,9 @@ app.delete('/usuarios/:id', async (req, res) => {
   try {
     const result = await pool.query('DELETE FROM usuarios WHERE id = $1 RETURNING *', [req.params.id]);
     res.json(result.rows[0]);
-    client.release();
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al borrar usuario');
-    client.release();
   }
 });
 
@@ -85,11 +75,9 @@ app.get('/libros', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM libros');
     res.json(result.rows);
-    client.release();
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al obtener libros');
-    client.release();
   }
 });
 
@@ -100,11 +88,9 @@ app.post('/usuarios/:id/libros', async (req, res) => {
     const result = await pool.query('INSERT INTO libros (titulo, autor, fecha_prestamo, usuario_id) VALUES ($1, $2, $3, $4) RETURNING *', 
     [titulo, autor, fecha_prestamo, req.params.id]);
     res.json(result.rows[0]);
-    client.release();
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al crear libro');
-    client.release();
   }
 });
 //Actualizar un libro
@@ -114,11 +100,9 @@ app.put('/usuarios/:id/libros/:libroId', async (req, res) => {
     const result = await pool.query('UPDATE libros SET titulo = $1, autor = $2, fecha_prestamo = $3 WHERE id = $4 AND usuario_id = $5 RETURNING *', 
     [titulo, autor, fecha_prestamo, req.params.libroId, req.params.id]);
     res.json(result.rows[0]);
-    client.release();
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al actualizar libro');
-    client.release();
   }
 });
 //Eliminar un libro
@@ -126,11 +110,9 @@ app.delete('/usuarios/:id/libros/:libroId', async (req, res) => {
   try {
     const result = await pool.query('DELETE FROM libros WHERE id = $1 AND usuario_id = $2 RETURNING *', [req.params.libroId, req.params.id]);
     res.json(result.rows[0]);
-    client.release();
   } catch (err) {
     console.error(err);
     res.status(500).send('Error al borrar libro');
-    client.release();
   }
 });
 
